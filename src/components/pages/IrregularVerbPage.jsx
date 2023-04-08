@@ -1,11 +1,15 @@
 import React from 'react'
-import IrregularVerbTable from '../irregular_verb_table/IrregularVerbTable';
+import IrregularVerbTable from '../irregular_verbs_table/IrregularVerbsTable';
+import { Container } from 'react-bootstrap';
+import VerbSearchInput from '../table_controller/VerbSerachInput';
 
 const IrregularVerbPage = () => {
     const usualColor = '#025000';
 
     return (
-        <>
+        <Container>
+            <VerbSearchInput />
+
             <IrregularVerbTable irregularVerbs={
                 [
                     {
@@ -15,17 +19,20 @@ const IrregularVerbPage = () => {
                             {
                                 name: 'read',
                                 transcription: '[riːd]',
-                                soundPath: ''
+                                soundPath: '',
+                                form: 'v1'
                             },
                             {
                                 name: 'read',
                                 transcription: '[riːd]',
-                                soundPath: ''
+                                soundPath: '',
+                                form: 'v2'
                             },
                             {
                                 name: 'read',
                                 transcription: '[riːd]',
-                                soundPath: ''
+                                soundPath: '',
+                                form: 'v3'
                             }
                         ]
                     },
@@ -36,23 +43,26 @@ const IrregularVerbPage = () => {
                             {
                                 name: 'set',
                                 transcription: '[set]',
-                                soundPath: ''
+                                soundPath: '',
+                                form: 'v1'
                             },
                             {
                                 name: 'set',
                                 transcription: '[set]',
-                                soundPath: ''
+                                soundPath: '',
+                                form: 'v2'
                             },
                             {
                                 name: 'set',
                                 transcription: '[set]',
-                                soundPath: ''
+                                soundPath: '',
+                                form: 'v3'
                             }
                         ]
                     }
                 ]
             } />
-        </>
+        </Container>
     )
 }
 

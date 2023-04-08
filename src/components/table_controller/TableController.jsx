@@ -1,31 +1,52 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import { Context } from '../../index'
+import { observer } from 'mobx-react-lite';
 
-const TableController = (callback) => {
-    const [value, setValue] = useState([1, 4]);
+const TableController = observer(() => {
+    const { irregularVerbsTable } = useContext(Context)
 
-    const handleChange = (val) => {
-        setValue(val);
-        callback(val);
-    };
+    const hideTranslateCol = () =>
+        irregularVerbsTable.setIsHideTranslateCol(!irregularVerbsTable.isHideTranslateCol)
+
+    const hideV1Col = () =>
+        irregularVerbsTable.setIsHideV1Col(!irregularVerbsTable.isHideV1Col)
+
+    const hideV2Col = () =>
+        irregularVerbsTable.setIsHideV2Col(!irregularVerbsTable.isHideV2Col)
+
+    const hideV3Col = () =>
+        irregularVerbsTable.setIsHideV3Col(!irregularVerbsTable.isHideV3Col)
 
     return (
-        <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange}>
-            <ToggleButton id="tbg-btn-1" value={1}>
+        <ToggleButtonGroup type="checkbox">
+            <ToggleButton id="translate"
+                onClick={hideTranslateCol}
+                value={1}
+                variant='primary'>
                 Переклад
             </ToggleButton>
-            <ToggleButton id="tbg-btn-2" value={2}>
+            <ToggleButton id="v1"
+                onClick={hideV1Col}
+                value={2}
+                variant='success'>
                 1 Форма
             </ToggleButton>
-            <ToggleButton id="tbg-btn-3" value={3}>
+            <ToggleButton id="v2"
+                onClick={hideV2Col}
+                value={3}
+                variant='success'>
                 2 Форма
             </ToggleButton>
-            <ToggleButton id="tbg-btn-4" value={4}>
+            <ToggleButton id="v3"
+                onClick={hideV3Col}
+                value={4}
+                variant='success'>
                 3 Форма
             </ToggleButton>
         </ToggleButtonGroup>
     )
-}
+})
 
 export default TableController;
