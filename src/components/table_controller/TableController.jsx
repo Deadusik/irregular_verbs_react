@@ -3,6 +3,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite';
+import styles from './TableController.module.scss'
 
 const TableController = observer(() => {
     const { irregularVerbsTable } = useContext(Context)
@@ -20,7 +21,7 @@ const TableController = observer(() => {
         irregularVerbsTable.setIsHideV3Col(!irregularVerbsTable.isHideV3Col)
 
     return (
-        <ToggleButtonGroup type="checkbox">
+        <ToggleButtonGroup type="checkbox" className={styles.TableController}>
             <ToggleButton id="translate"
                 onClick={hideTranslateCol}
                 value={1}

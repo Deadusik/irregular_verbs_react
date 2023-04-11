@@ -1,69 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import IrregularVerbTable from '../irregular_verbs_table/IrregularVerbsTable';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import VerbSearchInput from '../table_controller/VerbSerachInput';
+import TableController from '../table_controller/TableController'
+import { Context } from '../..';
+import { observer } from 'mobx-react-lite';
 
-const IrregularVerbPage = () => {
-    const usualColor = '#025000';
+const IrregularVerbPage = observer(() => {
+    const { irregularVerbs } = useContext(Context)
 
     return (
         <Container>
-            <VerbSearchInput />
-
-            <IrregularVerbTable irregularVerbs={
-                [
-                    {
-                        translate: 'читати',
-                        colorRarity: usualColor,
-                        verbs: [
-                            {
-                                name: 'read',
-                                transcription: '[riːd]',
-                                soundPath: '',
-                                form: 'v1'
-                            },
-                            {
-                                name: 'read',
-                                transcription: '[riːd]',
-                                soundPath: '',
-                                form: 'v2'
-                            },
-                            {
-                                name: 'read',
-                                transcription: '[riːd]',
-                                soundPath: '',
-                                form: 'v3'
-                            }
-                        ]
-                    },
-                    {
-                        translate: 'встановлювати',
-                        colorRarity: usualColor,
-                        verbs: [
-                            {
-                                name: 'set',
-                                transcription: '[set]',
-                                soundPath: '',
-                                form: 'v1'
-                            },
-                            {
-                                name: 'set',
-                                transcription: '[set]',
-                                soundPath: '',
-                                form: 'v2'
-                            },
-                            {
-                                name: 'set',
-                                transcription: '[set]',
-                                soundPath: '',
-                                form: 'v3'
-                            }
-                        ]
-                    }
-                ]
+            <Row className='d-flex justify-content-between' md={12}>
+                <Col md={4} className='d-inline-flex'>
+                    <VerbSearchInput />
+                </Col>
+                <Col className='d-inline-flex justify-content-end'>
+                    <TableController />
+                </Col>
+            </Row>
+            <IrregularVerbTable currentVerbs={
+                irregularVerbs.currentVerbs
             } />
         </Container>
     )
-}
+})
 
 export default IrregularVerbPage;

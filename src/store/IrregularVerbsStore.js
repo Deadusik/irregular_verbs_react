@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx";
 export default class IrregularVerbsStore {
     constructor() {
         const usualColor = '#025000'
-        this._verbItems = [
+        this._verbStore = [
             {
                 translate: 'читати',
                 colorRarity: usualColor,
@@ -77,15 +77,24 @@ export default class IrregularVerbsStore {
                 ]
             }
         ]
+        this._currentVerbs = [...this._verbStore]
 
         makeAutoObservable(this)
     }
 
-    setVerbItem(verbItem) {
-        this._verbItems.push(verbItem)
+    setVerbStore(verbItems) {
+        this._verbStore = verbItems
     }
 
-    get verbItems() {
-        return this._verbItems
+    get verbStore() {
+        return this._verbStore
+    }
+
+    setCurrentVerbs(verbItems) {
+        this._currentVerbs = verbItems
+    }
+
+    get currentVerbs() {
+        return this._currentVerbs
     }
 }
