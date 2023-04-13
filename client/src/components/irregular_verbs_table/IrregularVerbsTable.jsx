@@ -1,20 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Table } from 'react-bootstrap'
 import IrregularVerbForm from '../irregular_verb_form/IrregularVerbFrom';
-import { Context } from '../../index';
 import { observer } from 'mobx-react-lite';
 
-const IrregularVerbsTable = observer(({ currentVerbs }) => {
-
-    const { irregularVerbsTable } = useContext(Context)
+const IrregularVerbsTable = observer(({ currentVerbs, tableStore }) => {
 
     const checkIsVerbHide = (verb) => {
         if (verb.form === 'v1')
-            return !irregularVerbsTable.isHideV1Col
+            return !tableStore.isHideV1Col
         else if (verb.form === 'v2')
-            return !irregularVerbsTable.isHideV2Col
+            return !tableStore.isHideV2Col
         else if (verb.form === 'v3')
-            return !irregularVerbsTable.isHideV3Col
+            return !tableStore.isHideV3Col
 
         return false
     }
@@ -45,7 +42,7 @@ const IrregularVerbsTable = observer(({ currentVerbs }) => {
                             { /* Row translate */}
                             <td>
                                 {
-                                    !irregularVerbsTable.isHideTranslateCol
+                                    !tableStore.isHideTranslateCol
                                     &&
                                     verbRow.translate
                                 }
@@ -58,7 +55,7 @@ const IrregularVerbsTable = observer(({ currentVerbs }) => {
                                             {
                                                 checkIsVerbHide(verbItem)
                                                 &&
-                                                < IrregularVerbForm
+                                                <IrregularVerbForm
                                                     name={verbItem.name}
                                                     transcription={verbItem.transcription}
                                                     soundPath={verbItem.soundPath} />
@@ -69,7 +66,7 @@ const IrregularVerbsTable = observer(({ currentVerbs }) => {
                         </tr>)
                 }
             </tbody>
-        </Table>
+        </Table >
     )
 })
 

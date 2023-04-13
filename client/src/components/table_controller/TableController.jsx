@@ -1,24 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import { Context } from '../../index'
 import { observer } from 'mobx-react-lite';
 import styles from './TableController.module.scss'
 
-const TableController = observer(() => {
-    const { irregularVerbsTable } = useContext(Context)
-
+const TableController = observer(({ tableStore }) => {
     const hideTranslateCol = () =>
-        irregularVerbsTable.setIsHideTranslateCol(!irregularVerbsTable.isHideTranslateCol)
+        tableStore.setIsHideTranslateCol(!tableStore.isHideTranslateCol)
 
     const hideV1Col = () =>
-        irregularVerbsTable.setIsHideV1Col(!irregularVerbsTable.isHideV1Col)
+        tableStore.setIsHideV1Col(!tableStore.isHideV1Col)
 
     const hideV2Col = () =>
-        irregularVerbsTable.setIsHideV2Col(!irregularVerbsTable.isHideV2Col)
+        tableStore.setIsHideV2Col(!tableStore.isHideV2Col)
 
     const hideV3Col = () =>
-        irregularVerbsTable.setIsHideV3Col(!irregularVerbsTable.isHideV3Col)
+        tableStore.setIsHideV3Col(!tableStore.isHideV3Col)
 
     return (
         <ToggleButtonGroup type="checkbox" className={styles.TableController}>

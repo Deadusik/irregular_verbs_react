@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 
 const IrregularVerbPage = observer(() => {
     const { irregularVerbs } = useContext(Context)
+    const { generalTable } = useContext(Context)
 
     return (
         <Container>
@@ -16,12 +17,12 @@ const IrregularVerbPage = observer(() => {
                     <VerbSearchInput />
                 </Col>
                 <Col className='d-inline-flex justify-content-end'>
-                    <TableController />
+                    <TableController tableStore={generalTable} />
                 </Col>
             </Row>
-            <IrregularVerbTable currentVerbs={
-                irregularVerbs.currentVerbs
-            } />
+            <IrregularVerbTable
+                currentVerbs={irregularVerbs.currentVerbs}
+                tableStore={generalTable} />
         </Container>
     )
 })
