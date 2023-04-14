@@ -1,0 +1,21 @@
+.Star {
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+}
+
+.Rating {
+    font-size: 48px;
+}
+
+.GeneralRating {
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.UserRating {
+    z-index: 1;
+}

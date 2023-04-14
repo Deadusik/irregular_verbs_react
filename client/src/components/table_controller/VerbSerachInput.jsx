@@ -38,7 +38,7 @@ const VerbSearchInput = observer(() => {
     }
 
     return (
-        <InputGroup className="mb-3">
+        <InputGroup>
             <Button
                 onClick={() => irregularVerbs.setCurrentVerbs(findWordByName(word))}
                 variant="outline-secondary"

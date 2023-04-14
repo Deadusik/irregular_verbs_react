@@ -1,0 +1,40 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.small-t-ctrl {
+    display: flex;
+    background-color: red;
+}
+
+.Container {
+    background-color: white;
+}
+
+@include media-breakpoint-up(sm) {
+    .small-t-ctrl {
+        display: flex;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .small-t-ctrl {
+        display: inline-flex;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .small-t-ctrl {
+        display: inline-flex;
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .small-t-ctrl {
+        display: inline-flex;
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    .small-t-ctrl {
+        display: inline-flex;
+    }
+}

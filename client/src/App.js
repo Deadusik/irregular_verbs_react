@@ -1,13 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/navbar/Navigatebar';
 import IrregularVerbPage from './components/pages/IrregularVerbPage';
+import { Container } from 'react-bootstrap';
+import styles from './styles/App.module.scss'
 
 function App() {
   return (
-    <div className="container">
+    <Container>
       <Navbar />
       <IrregularVerbPage />
-    </div>
+    </Container>
   );
 }
 

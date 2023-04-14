@@ -18,7 +18,7 @@ const TableController = observer(({ tableStore }) => {
         tableStore.setIsHideV3Col(!tableStore.isHideV3Col)
 
     return (
-        <ToggleButtonGroup type="checkbox" className={styles.TableController}>
+        <ToggleButtonGroup type="checkbox">
             <ToggleButton id="translate"
                 onClick={hideTranslateCol}
                 value={1}
