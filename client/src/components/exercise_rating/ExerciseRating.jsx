@@ -3,7 +3,7 @@ import { Card, Row } from 'react-bootstrap'
 import { IoStarOutline, IoStarSharp, IoStarHalfOutline } from 'react-icons/io5';
 import styles from './ExerciseRating.module.scss'
 
-const ExerciseRating = ({ rating = 2.5, countUsers = 0 }) => {
+const ExerciseRating = ({ rating = 3.5, countUsers = 0 }) => {
     const DEFAULT_STARS_STATE = [false, false, false, false, false]
     const [stars, setStars] = useState(DEFAULT_STARS_STATE)
     const [isSetRating, setIsSetRating] = useState(false)
@@ -16,6 +16,8 @@ const ExerciseRating = ({ rating = 2.5, countUsers = 0 }) => {
     const drawGeneralRating = () => {
         const generalStars = []
 
+        if(rating < 0 || rating > 5) return
+
         for (let i = rating; i > 0; i--) {
             if (i < 1 && i > 0) {
                 generalStars.push(
@@ -25,7 +27,7 @@ const ExerciseRating = ({ rating = 2.5, countUsers = 0 }) => {
                         fill={DARK_YELLOW} />
                 )
             }
-            else if (i > 0) {
+            else {
                 generalStars.push(
                     <IoStarSharp
                         key={Date.now() + Math.round(i)}

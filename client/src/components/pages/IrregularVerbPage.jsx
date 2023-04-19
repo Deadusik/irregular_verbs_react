@@ -1,17 +1,44 @@
 import React, { useContext } from 'react'
-import IrregularVerbTable from '../irregular_verbs_table/IrregularVerbsTable';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import VerbSearchInput from '../table_controller/VerbSerachInput';
-import TableController from '../table_controller/TableController'
 import { Context } from '../..';
 import { observer } from 'mobx-react-lite';
-import styles from './IrregularVerbPage.module.scss'
+//models
+import { Comment } from '../../models/Comment';
+import { ParentComment } from '../../models/ParentComment';
+// components
+import IrregularVerbTable from '../irregular_verbs_table/IrregularVerbsTable';
+import VerbSearchInput from '../table_controller/VerbSerachInput';
+import TableController from '../table_controller/TableController'
 import ExerciseRating from '../exercise_rating/ExerciseRating';
 import Comments from '../comments/Comments';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+// style
+import styles from './IrregularVerbPage.module.scss'
+
 
 const IrregularVerbPage = observer(() => {
     const { irregularVerbs } = useContext(Context)
     const { generalTable } = useContext(Context)
+ 
+    const parentComments = [
+        new ParentComment(
+            new Comment('User1', 'hello hello hello hello', Date.now()),
+            [
+                new Comment('User1', 'hello hello hello hello', Date.now()),
+                new Comment('User2', 'hello hello hello hello', Date.now()),
+                new Comment('User3', 'hello hello hello hello', Date.now()),
+            ]
+        ),
+        new ParentComment(
+            new Comment('User5', 'hello hello hello hello', Date.now()),
+            [
+                new Comment('User1', 'hello hello hello hello', Date.now()),
+            ]
+        ),
+        new ParentComment(
+            new Comment('User5', 'hello hello hello hello', Date.now()),
+            []
+        ),
+    ]
 
     return (
         <Container className={styles.Container}>
@@ -32,7 +59,7 @@ const IrregularVerbPage = observer(() => {
                 tableStore={generalTable} />
             <ExerciseRating />
             <div className='mt-3'>
-                <Comments />
+                <Comments parentComments={parentComments}/>
             </div>
         </Container>
     )

@@ -1,0 +1,23 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.MoreButton {
+    padding: 8px 10px;
+    font-size: 20px;
+    width: 15%;
+}
+
+.ChildComment {
+    margin-left: 15%;
+}
+
+@include media-breakpoint-up(sm) {     
+    .MoreButton {
+        padding: 8px 10px;
+        font-size: 20px;
+        width: 75%;
+    }
+}
+@include media-breakpoint-up(md) {  }
+@include media-breakpoint-up(lg) {  }
+@include media-breakpoint-up(xl) {  }
+@include media-breakpoint-up(xxl) {  }

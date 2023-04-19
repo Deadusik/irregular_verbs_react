@@ -17,9 +17,11 @@ const VerbSearchInput = observer(() => {
 
     // return true if translate or verb name equal query
     const checkVerbItem = (verbItem, query) => {
-        if (cutByLength(verbItem.translate, query.length) === query.toLowerCase())
+        const { translate, verbs } = verbItem
+
+        if (cutByLength(translate, query.length) === query.toLowerCase())
             return true
-        else if (verbItem.verbs.filter(verb =>
+        else if (verbs.filter(verb =>
             cutByLength(verb.name.toLowerCase(), query.length) === query.toLowerCase()).length > 0)
             return true
 
