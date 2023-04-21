@@ -1,22 +1,23 @@
 import React from 'react'
-import { Nav } from 'react-bootstrap'
+import { Navbar, Container, Nav } from 'react-bootstrap'
 
 const Navigatebar = () => {
     return (
         <>
-            <Nav
-                activeKey="/home"
-                onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
-                <Nav.Item>
-                    <Nav.Link href="/home">Active</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-1">Link</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-2">Link</Nav.Link>
-                </Nav.Item>
-            </Nav>
+            <Navbar bg="primary" variant="dark" fixed='top'>
+                <Container>
+                    <Navbar.Brand href="/">IVerb</Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="/irregular_verbs">Irregular verbs</Nav.Link>
+                        <Nav.Link href="/test_verbs">Test</Nav.Link>
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <Nav.Link href="/signin">Sign in</Nav.Link>
+                        <Nav.Link href="/registration">Registration</Nav.Link>
+                    </Nav>
+                </Container>
+            </Navbar>
         </>
     );
 }

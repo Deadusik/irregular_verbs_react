@@ -1,11 +1,14 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Container } from 'react-bootstrap'
+import styles from './Footer.module.scss'
 
 const Footer = () => {
     return (
-        <Card>
-            <h1>Footer</h1>
-        </Card>
+        <Container fluid className={styles.Footer}>
+            <Card>
+                <h1>Footer</h1>
+            </Card>
+        </Container>
     )
 }
 

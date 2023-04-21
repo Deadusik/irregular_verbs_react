@@ -14,7 +14,6 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 // style
 import styles from './IrregularVerbPage.module.scss'
 
-
 const IrregularVerbPage = observer(() => {
     const { irregularVerbs } = useContext(Context)
     const { generalTable } = useContext(Context)
