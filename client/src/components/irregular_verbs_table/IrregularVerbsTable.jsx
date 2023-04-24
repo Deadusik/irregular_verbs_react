@@ -4,7 +4,6 @@ import IrregularVerbForm from '../irregular_verb_form/IrregularVerbFrom';
 import { observer } from 'mobx-react-lite';
 
 const IrregularVerbsTable = observer(({ currentVerbs, tableStore }) => {
-
     const checkIsVerbHide = (verb) => {
         if (verb.form === 'v1')
             return !tableStore.isHideV1Col

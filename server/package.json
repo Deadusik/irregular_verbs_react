@@ -1,0 +1,21 @@
+{
+  "name": "iv_server",
+  "version": "1.0.0",
+  "description": "irregular verbs server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "irregular",
+    "verbs",
+    "node",
+    "js"
+  ],
+  "author": "deadusik",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}

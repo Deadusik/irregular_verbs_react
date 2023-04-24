@@ -8,13 +8,13 @@ const Navigatebar = () => {
                 <Container>
                     <Navbar.Brand href="/">IVerb</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/irregular_verbs">Irregular verbs</Nav.Link>
-                        <Nav.Link href="/test_verbs">Test</Nav.Link>
+                        <Nav.Link href="/">Головна</Nav.Link>
+                        <Nav.Link href="/irregular_verbs">Неправильні глаголи</Nav.Link>
+                        <Nav.Link href="/test_verbs">Тестування</Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Link href="/signin">Sign in</Nav.Link>
-                        <Nav.Link href="/registration">Registration</Nav.Link>
+                        <Nav.Link href="/signin">Вхід</Nav.Link>
+                        <Nav.Link href="/registration">Регістрація</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
