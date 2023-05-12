@@ -1,14 +1,16 @@
-const path = require('path')
+require('dotenv').config()
+const express = require('express')
+const router = require('./src/routes/index')
+const errorHandler = require('./src/middleware/ErrorHandlingMiddleware')
+const cors = require('cors')
+const PORT = process.env.PORT || 4000
 
-//console.log('first path:', path.join(__dirname))
-//console.log('second path:', path.join(__dirname))
-//console.log('third path:', path.resolve('/third'))
+const app = express()
+app.use(cors())
+app.use(express.json())
+app.use('/api', router)
+app.use(errorHandler)
 
-
-//console.log('parse path:', fullpath)
-const filepath = path.resolve(__dirname, 'index.js')
-console.log('file expansion:', path.extname(filepath))
-
-console.log('separator OS:', path.sep)
-console.log('check is absolute path:', path.isAbsolute(__dirname))
-console.log('get filename:', path.basename(__dirname))
+app.listen(PORT, () => {
+    console.log(`server was started on ${PORT}`)
+})
