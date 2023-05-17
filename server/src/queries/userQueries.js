@@ -5,8 +5,8 @@ const createUser = (login, email, password) =>
 const getUserById = (id) => 
 `SELECT * FROM "user" WHERE id = ${id}`
 
-const getUserByColVal = (col, login) => 
-`SELECT * FROM "user" WHERE ${col} = '${login}'`
+const getUserByColVal = (col, val) => 
+`SELECT * FROM "user" WHERE ${col} = '${val}'`
 
 const deleteUser = (id) => 
 `DELETE FROM "user" WHERE id = '${id}'`

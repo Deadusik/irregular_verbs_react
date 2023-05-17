@@ -5,9 +5,11 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const generateJWT = (id, login, role) => {
+const generateJWT = (login, email) => {
+    console.log('secret key:', process.env.SECRET_KEY)
+
     return jwt.sign(
-        { id, email, role },
+        { login, email },
         process.env.SECRET_KEY,
         { expiresIn: '24h' }
     )
@@ -41,30 +43,38 @@ class UserController {
             // create user 
             pool.query(userQueries.createUser(login, email, hashPassword), (error, results) => {
                 if(error) return next(ApiError.badRequest(error.message))
-                console.log("new user:", results.rows)
+                
             })
 
-
-
-            //const token = generateJWT
-
-
-
-
+            const token = generateJWT(login, email)
+            res.status(200).json({token})
         } catch(e) {
             next(ApiError.badRequest(e.message))
         }
     }
 
     async login(req, res, next) {
-        const { login, password } = req.body
-        pool.query(userQueries.getUserByLogin(login), (error, results) => {
-            if(error) return next(ApiError.badRequest(error.message))
+        try {
+            const { login, password } = req.body
             
+            // check is login exist
+            const results = await pool.query(userQueries.getUserByColVal('login', login))
 
+            if(results.rows == 0)
+                return next(ApiError.badRequest('Юзера з таким логіном не існує'))
 
-            res.status(200).json(results.rows)
-        })
+            const user = results.rows[0]    
+            // check is password equal user password
+            const comparedPassword = await bcrypt.compare(password, user.password)
+
+            if(!comparedPassword) 
+                return next(ApiError.badRequest('Паролі не співпадають'))
+                
+            const token = generateJWT(user.login, user.email)
+            res.status(200).json({token})
+        } catch(e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 
     async check(req, res, next) {
