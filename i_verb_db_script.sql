@@ -72,3 +72,6 @@ CREATE TABLE "user" (
 	role VARCHAR(30) NOT NULL,
 	password VARCHAR(100) NOT NULL
 );
+
+INSERT INTO "user" (login, email, role, password) 
+VALUES ('admin2', 'admin2@gmail.com', 'ADMIN', '$2a$05$jdg/eh.DLNbUGPlr5CTU1eh676lW6bjw9PapGyBFXewQ4L89wRnui');
