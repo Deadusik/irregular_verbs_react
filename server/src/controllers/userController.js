@@ -24,42 +24,42 @@ class UserController {
             const { login, email, password } = req.body
             let results
             // check is data empty
-            if(!login || !email || !password) {
+            if (!login || !email || !password) {
                 return next(ApiError.badRequest('Некорректні значення'))
             }
 
             // email regex check
-            if(!EMAIL_REGEX.test(email.toString())) {
+            if (!EMAIL_REGEX.test(email.toString())) {
                 return next(ApiError.badRequest('Потрібно написати емайл'))
             }
 
             // password regex check
-            if(!PASSWORD_REGEX.test(password.toString())) {
+            if (!PASSWORD_REGEX.test(password.toString())) {
                 return next(ApiError.badRequest('У паролі має бути мінімум 8 символів, як мінімум одна буква і одна цифра'))
             }
             // check is login exist
             results = await pool.query(userQueries.getUserByColVal('login', login))
 
-            if(results.rows.length > 0)
+            if (results.rows.length > 0)
                 return next(ApiError.badRequest('Користувач з таким логіном вже існує'))
-            
+
             // check is email exist
             results = await pool.query(userQueries.getUserByColVal('email', email))
 
-            if(results.rows.length > 0)
+            if (results.rows.length > 0)
                 return next(ApiError.badRequest('Даний емайл вже зайнятий'))
 
             // password to hesh
             const hashPassword = await bcrypt.hash(password, 5)
             // create user 
             pool.query(userQueries.createUser(login, email, hashPassword), (error, results) => {
-                if(error) return next(ApiError.badRequest(error.message))
+                if (error) return next(ApiError.badRequest(error.message))
             })
 
             //get jwt token
             const token = generateJWT(login, email)
-            res.status(200).json({token})
-        } catch(e) {
+            res.status(200).json({ token })
+        } catch (e) {
             next(ApiError.badRequest(e.message))
         }
     }
@@ -67,25 +67,25 @@ class UserController {
     async login(req, res, next) {
         try {
             const { login, password } = req.body
-            
+
             // check is login exist
             const results = await pool.query(userQueries.getUserByColVal('login', login))
 
-            if(results.rows.length == 0)
+            if (results.rows.length == 0)
                 return next(ApiError.badRequest('Юзера з таким логіном не існує'))
 
-            const user = results.rows[0]    
+            const user = results.rows[0]
             // check is password equal user password
             const comparedPassword = await bcrypt.compare(password, user.password)
 
-            if(!comparedPassword) 
+            if (!comparedPassword)
                 return next(ApiError.badRequest('Паролі не співпадають'))
-            
+
             // get jwt token
             const token = generateJWT(user.login, user.role)
-            res.status(200).json({token})
-        } catch(e) {
-            next(ApiError.badRequest(e.message))
+            res.status(200).json({ token })
+        } catch (e) {
+            next(ApiError.badRequest('1'))
         }
     }
 
@@ -93,17 +93,17 @@ class UserController {
         const { login } = req.body
 
         const token = generateJWT(login, 'USER')
-        res.status(200).json({token})
+        res.status(200).json({ token })
     }
 
     async delete(req, res, next) {
         try {
             const id = req.params.id
             pool.query(userQueries.deleteUser(id), (error, results) => {
-                if(error) return next(ApiError.badRequest(error.message))
+                if (error) return next(ApiError.badRequest(error.message))
                 res.status(200)
             })
-        } catch(e) {
+        } catch (e) {
             next(ApiError.badRequest(e.message))
         }
     }

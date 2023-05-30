@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import { Context } from '../..';
+import { Context } from '..';
 import { observer } from 'mobx-react-lite';
 //models
-import { Comment } from '../../models/Comment';
-import { ParentComment } from '../../models/ParentComment';
+import { Comment } from '../models/Comment';
+import { ParentComment } from '../models/ParentComment';
 // components
-import IrregularVerbTable from '../irregular_verbs_table/IrregularVerbsTable';
-import VerbSearchInput from '../table_controller/VerbSerachInput';
-import TableController from '../table_controller/TableController'
-import ExerciseRating from '../exercise_rating/ExerciseRating';
-import Comments from '../comments/Comments';
+import IrregularVerbTable from '../components/irregular_verbs_table/IrregularVerbsTable';
+import VerbSearchInput from '../components/table_controller/VerbSerachInput';
+import TableController from '../components/table_controller/TableController'
+import ExerciseRating from '../components/exercise_rating/ExerciseRating';
+import Comments from '../components/comments/Comments';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 // style
 import styles from './IrregularVerbPage.module.scss'
@@ -17,7 +17,7 @@ import styles from './IrregularVerbPage.module.scss'
 const IrregularVerbPage = observer(() => {
     const { irregularVerbs } = useContext(Context)
     const { generalTable } = useContext(Context)
- 
+
     const parentComments = [
         new ParentComment(
             new Comment('User1', 'hello hello hello hello', Date.now()),
@@ -58,7 +58,7 @@ const IrregularVerbPage = observer(() => {
                 tableStore={generalTable} />
             <ExerciseRating />
             <div className='mt-3'>
-                <Comments parentComments={parentComments}/>
+                <Comments parentComments={parentComments} />
             </div>
         </Container>
     )

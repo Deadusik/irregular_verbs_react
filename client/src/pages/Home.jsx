@@ -8,7 +8,7 @@ const Home = () => {
             <Row>
                 Description
             </Row>
-            <hr/>
+            <hr />
             <Row>
                 <Col md={3}>
                     <Card>
