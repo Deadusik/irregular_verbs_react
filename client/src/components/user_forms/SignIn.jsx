@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Card, Button, Form, Row, InputGroup, Col } from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
+import { Context } from '../../index'
+import { useNavigate } from 'react-router-dom'
+import { HOME } from '../../router/paths'
 //react bootstrap icons
 import { AiFillLock } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
@@ -10,11 +13,20 @@ import { login } from '../../http/userAPI'
 const SignIn = () => {
     const [userLogin, setUserLogin] = useState('')
     const [password, setPassword] = useState('')
+    const { user } = useContext(Context)
+    const navigate = useNavigate()
 
     const signIn = async () => {
         const { data } = await login(userLogin, password)
+        if (data.token) {
+            const { login, email, role } = jwt_decode(data.token)
+            user.setLogin(login)
+            user.setEmail(email)
+            user.setRole(role)
+            user.setIsAuth(true)
 
-        return jwt_decode(data.token)
+            navigate(HOME)
+        }
     }
 
     return (

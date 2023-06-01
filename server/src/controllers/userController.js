@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const generateJWT = (login, role) => {
+const generateJWT = (login, email, role) => {
     console.log('secret key:', process.env.SECRET_KEY)
 
     return jwt.sign(
-        { login, role },
+        { login, email, role },
         process.env.SECRET_KEY,
         { expiresIn: '24h' }
     )
@@ -19,6 +19,7 @@ class UserController {
     async registration(req, res, next) {
         const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
         const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+        const DEFAULT_ROLE = 'USER'
 
         try {
             const { login, email, password } = req.body
@@ -52,12 +53,12 @@ class UserController {
             // password to hesh
             const hashPassword = await bcrypt.hash(password, 5)
             // create user 
-            pool.query(userQueries.createUser(login, email, hashPassword), (error, results) => {
+            pool.query(userQueries.createUser(login, email, hashPassword, DEFAULT_ROLE), (error, results) => {
                 if (error) return next(ApiError.badRequest(error.message))
             })
 
             //get jwt token
-            const token = generateJWT(login, email)
+            const token = generateJWT(login, email, DEFAULT_ROLE)
             res.status(200).json({ token })
         } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -82,10 +83,10 @@ class UserController {
                 return next(ApiError.badRequest('Паролі не співпадають'))
 
             // get jwt token
-            const token = generateJWT(user.login, user.role)
+            const token = generateJWT(user.login, user.email, user.role)
             res.status(200).json({ token })
         } catch (e) {
-            next(ApiError.badRequest('1'))
+            next(ApiError.badRequest(e.message))
         }
     }
 
