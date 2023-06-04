@@ -3,14 +3,13 @@ import { Navbar, Container, Nav } from 'react-bootstrap'
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
 //react-bootstrap icons
-import { FaUser } from 'react-icons/fa'
-import { FaKey } from 'react-icons/fa'
+import UserMenuDropDown from '../dropdowns/UserMenuDropDown'
+import AdminMenuDropDown from '../dropdowns/AdminMenuDropDown'
 
 const Navigatebar = observer(() => {
     const { user } = useContext(Context)
     const isAuth = user.isAuth
     const role = user.role
-    console.log(isAuth)
 
     return (
         <>
@@ -24,7 +23,7 @@ const Navigatebar = observer(() => {
                     </Nav>
                     { // guest navbar
                         !isAuth &&
-                        <Nav className="ml-auto">
+                        <Nav>
                             <Nav.Link href="/signin">Вхід</Nav.Link>
                             <Nav.Link href="/registration">Регістрація</Nav.Link>
                         </Nav>
@@ -33,13 +32,9 @@ const Navigatebar = observer(() => {
                         isAuth &&
                         <Nav className="ml-auto">
                             {role === 'ADMIN' && // if user is admin
-                                <Nav.Link href="/admin_panel">
-                                    <FaKey size={20} />
-                                </Nav.Link>
+                                <AdminMenuDropDown />
                             }
-                            <Nav.Link>
-                                <FaUser size={20} />
-                            </Nav.Link>
+                            <UserMenuDropDown />
                         </Nav>
                     }
                 </Container>

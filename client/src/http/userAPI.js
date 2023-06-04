@@ -9,6 +9,7 @@ export const login = async (login, password) => {
     let response
     try {
         response = await $host.post('api/user/login', { login, password })
+        localStorage.setItem('token', response.data.token)
         return response
     } catch (e) {
         return e.response
