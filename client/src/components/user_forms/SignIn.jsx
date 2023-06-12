@@ -1,29 +1,24 @@
 import React, { useState, useContext } from 'react'
 import { Card, Button, Form, Row, InputGroup, Col } from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
-import { Context } from '../../index'
 import { useNavigate } from 'react-router-dom'
+import { Context } from '../../index'
 import { HOME } from '../../router/paths'
 import { login } from '../../http/userAPI'
+//validation libraries
+import * as formik from 'formik'
+import * as yup from 'yup'
 //react bootstrap icons
 import { AiFillLock } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
-import * as formik from 'formik'
-import * as yup from 'yup'
-
-
-
-
-const SignIn = (errors) => {
+const SignIn = () => {
     const { Formik } = formik
-
-    const [userLogin, setUserLogin] = useState('')
-    const [password, setPassword] = useState('')
-    const { user } = useContext(Context)
     const navigate = useNavigate()
 
-    const signIn = async () => {
+    const { user } = useContext(Context)
+
+    const signIn = async (userLogin, password) => {
         const { data } = await login(userLogin, password)
         if (data.token) {
             const { login, email, role } = jwt_decode(data.token)
@@ -35,20 +30,27 @@ const SignIn = (errors) => {
             navigate(HOME)
         }
         if (data.message) {
-            errors.message = data.message
+            return data.message
         }
     }
+
+    const schema = yup.object().shape({
+        login: yup.string()
+            .required('Заповніть поле'),
+        password: yup.string()
+            .required('Заповніть поле')
+    })
 
     return (
         <div>
             <Card className='md-4'>
                 <Card.Body className='px-4'>
                     <Formik
+                        validationSchema={schema}
                         initialValues={{
-                            userName: '',
-                            email: '',
+                            login: '',
                             password: '',
-                            passwordRepeat: ''
+                            server: ''
                         }}>
                         {({ handleSubmit, handleChange, values, touched, errors }) => (
                             <Form noValidate onSubmit={handleSubmit}>
@@ -62,7 +64,7 @@ const SignIn = (errors) => {
                                         <Form.Control
                                             placeholder='Введіть емайл'
                                             type='text'
-                                            onChange={e => setUserLogin(e.target.value)} />
+                                            onChange={e => values.login = e.target.value} />
                                     </InputGroup>
                                 </Row>
                                 { /* Password input */}
@@ -72,17 +74,23 @@ const SignIn = (errors) => {
                                             <AiFillLock />
                                         </InputGroup.Text>
                                         <Form.Control placeholder='Введіть пароль'
+                                            name='password'
                                             type='password'
-                                            onChange={e => setPassword(e.target.value)} />
-                                        <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+                                            isInvalid={errors.server || errors.password}
+                                            onChange={e => values.password = e.target.value} />
+                                        <Form.Control.Feedback type='invalid'>{errors.password}</Form.Control.Feedback>
+                                        <Form.Control.Feedback type='invalid'>{errors.server}</Form.Control.Feedback>
                                     </InputGroup>
                                 </Row>
                                 { /* Submit btn and link to sign in */}
                                 <Row className='d-flex mt-2'>
                                     <Col className='d-flex justify-content-between align-items-center'>
-                                        <Button
+                                        <Button type='submit'
                                             onClick={() => {
-                                                signIn(errors)
+                                                signIn(values.login, values.password).then(error => {
+                                                    console.log('error', error)
+                                                    if (error) errors.server = error
+                                                })
                                             }}>
                                             Війти
                                         </Button>
@@ -92,52 +100,6 @@ const SignIn = (errors) => {
                             </Form>
                         )}
                     </Formik>
-                </Card.Body>
-            </Card>
-
-
-
-
-            <Card className='md-4'>
-                <Card.Body className='px-4'>
-                    <Form>
-                        <h2 className='text-center'>Логін</h2>
-                        { /* Email input */}
-                        <Row className='mt-2'>
-                            <InputGroup>
-                                <InputGroup.Text>
-                                    @
-                                </InputGroup.Text>
-                                <Form.Control
-                                    placeholder='Введіть емайл'
-                                    type='text'
-                                    onChange={e => setUserLogin(e.target.value)} />
-                            </InputGroup>
-                        </Row>
-                        { /* Password input */}
-                        <Row className='mt-2'>
-                            <InputGroup>
-                                <InputGroup.Text>
-                                    <AiFillLock />
-                                </InputGroup.Text>
-                                <Form.Control placeholder='Введіть пароль'
-                                    type='password'
-                                    onChange={e => setPassword(e.target.value)} />
-                            </InputGroup>
-                        </Row>
-                        { /* Submit btn and link to sign in */}
-                        <Row className='d-flex mt-2'>
-                            <Col className='d-flex justify-content-between align-items-center'>
-                                <Button
-                                    onClick={() => {
-                                        signIn()
-                                    }}>
-                                    Війти
-                                </Button>
-                                <Link to={'/registration'}>Немає аккаунта? Створити</Link>
-                            </Col>
-                        </Row>
-                    </Form>
                 </Card.Body>
             </Card>
         </div>

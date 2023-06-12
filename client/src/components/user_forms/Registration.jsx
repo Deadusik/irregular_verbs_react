@@ -32,7 +32,7 @@ const Registration = () => {
     return (
         <Card className='md-4'>
             <Card.Body className='px-4'>
-                <Formik 
+                <Formik
                     validationSchema={schema}
                     initialValues={{
                         userName: '',
@@ -43,66 +43,66 @@ const Registration = () => {
                     {({ handleSubmit, handleChange, values, touched, errors }) => (
                         <Form noValidate onSubmit={handleSubmit}>
                             <h2 className='text-center'>Регістрація</h2>
-                            { /* Nickname input */ }
+                            { /* Nickname input */}
                             <Row>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text>
-                                        <AiOutlineUser/>
+                                        <AiOutlineUser />
                                     </InputGroup.Text>
-                                    <Form.Control 
+                                    <Form.Control
                                         name='userName'
-                                        placeholder='Введіть нікнейм' 
+                                        placeholder='Введіть нікнейм'
                                         isInvalid={errors.userName}
                                         onChange={e => values.userName = e.target.value} />
                                     <Form.Control.Feedback type="invalid">{errors.userName}</Form.Control.Feedback>
                                 </InputGroup>
                             </Row>
-                            { /* Email input */ }
+                            { /* Email input */}
                             <Row className='mt-2'>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text>
                                         @
                                     </InputGroup.Text>
-                                    <Form.Control 
-                                        name='email' 
-                                        placeholder='Введіть емайл' 
+                                    <Form.Control
+                                        name='email'
+                                        placeholder='Введіть емайл'
                                         type='email'
                                         onChange={e => values.email = e.target.value}
-                                        isInvalid={errors.email}/>
+                                        isInvalid={errors.email} />
                                     <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                                 </InputGroup>
                             </Row>
-                            { /* Password input */ }
+                            { /* Password input */}
                             <Row className='mt-2'>
                                 <InputGroup>
                                     <InputGroup.Text>
-                                        <AiFillLock/>   
+                                        <AiFillLock />
                                     </InputGroup.Text>
-                                    <Form.Control 
+                                    <Form.Control
                                         name='password'
-                                        placeholder='Введіть пароль' 
-                                        type='password' 
+                                        placeholder='Введіть пароль'
+                                        type='password'
                                         onChange={e => values.password = e.target.value}
-                                        isInvalid={errors.password}/>
+                                        isInvalid={errors.password} />
                                     <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                                 </InputGroup>
                             </Row>
-                            { /* Repeat password input */ }
+                            { /* Repeat password input */}
                             <Row className='mt-2'>
                                 <InputGroup>
                                     <InputGroup.Text>
-                                        <BiRepeat/>   
+                                        <BiRepeat />
                                     </InputGroup.Text>
-                                    <Form.Control 
+                                    <Form.Control
                                         name='passwordRepeat'
-                                        placeholder='Повторіть пароль' 
+                                        placeholder='Повторіть пароль'
                                         type='password'
                                         onChange={e => values.passwordRepeat = e.target.value}
-                                        isInvalid={errors.passwordRepeat}/>
+                                        isInvalid={errors.passwordRepeat} />
                                     <Form.Control.Feedback type="invalid">{errors.passwordRepeat}</Form.Control.Feedback>
                                 </InputGroup>
                             </Row>
-                            { /* Submit btn and link to sign in */ }
+                            { /* Submit btn and link to sign in */}
                             <Row className='d-flex mt-2'>
                                 <Col className='d-flex justify-content-between align-items-center'>
                                     <Button type='submit'>

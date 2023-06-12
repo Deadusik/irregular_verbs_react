@@ -91,9 +91,9 @@ class UserController {
     }
 
     async check(req, res, next) {
-        const { login } = req.body
+        const { login, email, role } = req.body
 
-        const token = generateJWT(login, 'USER')
+        const token = generateJWT(login, email, role)
         res.status(200).json({ token })
     }
 
