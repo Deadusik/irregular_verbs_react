@@ -66,6 +66,8 @@ class UserController {
     }
 
     async login(req, res, next) {
+        const LOGIN_ERROR_MESSAGE = 'Пароль або логін невірні'
+
         try {
             const { login, password } = req.body
 
@@ -73,14 +75,14 @@ class UserController {
             const results = await pool.query(userQueries.getUserByColVal('login', login))
 
             if (results.rows.length == 0)
-                return next(ApiError.badRequest('Юзера з таким логіном не існує'))
+                return next(ApiError.badRequest(LOGIN_ERROR_MESSAGE))
 
             const user = results.rows[0]
             // check is password equal user password
             const comparedPassword = await bcrypt.compare(password, user.password)
 
             if (!comparedPassword)
-                return next(ApiError.badRequest('Паролі не співпадають'))
+                return next(ApiError.badRequest(LOGIN_ERROR_MESSAGE))
 
             // get jwt token
             const token = generateJWT(user.login, user.email, user.role)

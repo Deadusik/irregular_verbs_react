@@ -17,6 +17,7 @@ const SignIn = () => {
     const navigate = useNavigate()
 
     const { user } = useContext(Context)
+    const [serverError, setServerError] = useState('')
 
     const signIn = async (userLogin, password) => {
         const { data } = await login(userLogin, password)
@@ -50,7 +51,6 @@ const SignIn = () => {
                         initialValues={{
                             login: '',
                             password: '',
-                            server: ''
                         }}>
                         {({ handleSubmit, handleChange, values, touched, errors }) => (
                             <Form noValidate onSubmit={handleSubmit}>
@@ -64,7 +64,9 @@ const SignIn = () => {
                                         <Form.Control
                                             placeholder='Введіть емайл'
                                             type='text'
+                                            isInvalid={serverError || errors.login}
                                             onChange={e => values.login = e.target.value} />
+                                        <Form.Control.Feedback type='invalid'>{errors.login}</Form.Control.Feedback>
                                     </InputGroup>
                                 </Row>
                                 { /* Password input */}
@@ -76,10 +78,10 @@ const SignIn = () => {
                                         <Form.Control placeholder='Введіть пароль'
                                             name='password'
                                             type='password'
-                                            isInvalid={errors.server || errors.password}
+                                            isInvalid={serverError || errors.password}
                                             onChange={e => values.password = e.target.value} />
                                         <Form.Control.Feedback type='invalid'>{errors.password}</Form.Control.Feedback>
-                                        <Form.Control.Feedback type='invalid'>{errors.server}</Form.Control.Feedback>
+                                        <Form.Control.Feedback type='invalid'>{serverError}</Form.Control.Feedback>
                                     </InputGroup>
                                 </Row>
                                 { /* Submit btn and link to sign in */}
@@ -87,10 +89,12 @@ const SignIn = () => {
                                     <Col className='d-flex justify-content-between align-items-center'>
                                         <Button type='submit'
                                             onClick={() => {
-                                                signIn(values.login, values.password).then(error => {
-                                                    console.log('error', error)
-                                                    if (error) errors.server = error
-                                                })
+                                                console.log('errors:', errors.login, errors.password)
+                                                if (!errors.login && !errors.password) {
+                                                    signIn(values.login, values.password).then(error => {
+                                                        if (error) setServerError(error)
+                                                    })
+                                                }
                                             }}>
                                             Війти
                                         </Button>
