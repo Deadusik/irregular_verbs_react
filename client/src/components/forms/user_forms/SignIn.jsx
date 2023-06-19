@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react'
 import { Card, Button, Form, Row, InputGroup, Col } from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import { Context } from '../../index'
-import { HOME } from '../../router/paths'
-import { login } from '../../http/userAPI'
+import { Context } from '../../../index'
+import { HOME } from '../../../router/paths'
+import { login } from '../../../http/userAPI'
 //validation libraries
 import * as formik from 'formik'
 import * as yup from 'yup'
@@ -89,12 +89,9 @@ const SignIn = () => {
                                     <Col className='d-flex justify-content-between align-items-center'>
                                         <Button type='submit'
                                             onClick={() => {
-                                                console.log('errors:', errors.login, errors.password)
-                                                if (!errors.login && !errors.password) {
-                                                    signIn(values.login, values.password).then(error => {
-                                                        if (error) setServerError(error)
-                                                    })
-                                                }
+                                                signIn(values.login, values.password).then(error => {
+                                                    if (error) setServerError(error)
+                                                })
                                             }}>
                                             Війти
                                         </Button>

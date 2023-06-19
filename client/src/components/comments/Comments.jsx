@@ -1,16 +1,20 @@
-import React from 'react'
-import { Card, Row, Button, Col } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Card, Row, Button, Col, Modal } from 'react-bootstrap'
 import Comment from './Comment'
 import styles from './Comments.module.scss'
+import CommentForm from '../forms/CommentForm'
+import SimpleModal from '../modal/SimpleModal'
 
-const Comments = ({parentComments}) => {
-    const checkIsLastComment = (index, length) =>  index === length - 1
+const Comments = ({ parentComments }) => {
+    const checkIsLastComment = (index, length) => index === length - 1
 
     const getTotalSize = () => {
         let totalSize = parentComments.length
         parentComments.forEach(item => totalSize += item.childComments.length)
         return totalSize
     }
+
+    const [isShowModalComment, setIsShowModalComment] = useState(false)
 
     return (
         <Card>
@@ -26,16 +30,16 @@ const Comments = ({parentComments}) => {
                             return (
                                 <Col key={comment.userName + i}>
                                     { /* parent comment */}
-                                    <Comment comment={comment} isLast={childComments.length === 0}/>
-                                    <hr/>
+                                    <Comment comment={comment} isLast={childComments.length === 0} />
+                                    <hr />
                                     {
-                                        childComments.map((childComment, j) => 
-                                            <Col key={childComment.userName + j} 
+                                        childComments.map((childComment, j) =>
+                                            <Col key={childComment.userName + j}
                                                 className={styles.ChildComment}>
-                                                <Comment 
+                                                <Comment
                                                     comment={childComment}
-                                                    isLast={checkIsLastComment(j, childComments.length)}/>
-                                                <hr/>
+                                                    isLast={checkIsLastComment(j, childComments.length)} />
+                                                <hr />
                                             </Col>
                                         )
                                     }
@@ -44,8 +48,14 @@ const Comments = ({parentComments}) => {
                         })
                     }
                 </Row>
-                <Button variant='danger'>Залишити коментар</Button>
-                <hr/>
+                {/* Show modal form to add a new comment */}
+                <Button variant='danger' onClick={() => setIsShowModalComment(true)}>Залишити коментар</Button>
+                <SimpleModal
+                    title={'Додати коментар'}
+                    content={<CommentForm />}
+                    show={isShowModalComment}
+                    setShow={setIsShowModalComment} />
+                <hr />
                 <Row className='d-flex justify-content-center'>
                     <Button variant='dark' className={styles.MoreButton}>Ще коментарі</Button>
                 </Row>
