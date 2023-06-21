@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Row, InputGroup } from 'react-bootstrap'
+import { Form, Row, InputGroup, Button } from 'react-bootstrap'
 //react bootstrap icons
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsChatLeftText } from 'react-icons/bs'
@@ -22,6 +22,9 @@ const CommentForm = () => {
                     </InputGroup.Text>
                     <Form.Control as="textarea" aria-label="With textarea" placeholder='Ваше повідомлення' />
                 </InputGroup>
+            </Row>
+            <Row className='d-flex justify-content-center mt-2 px-2'>
+                <Button type='submit' className='w-100' variant="primary">Додати</Button>
             </Row>
         </Form>
     )

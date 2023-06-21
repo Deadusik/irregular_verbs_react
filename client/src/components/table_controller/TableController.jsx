@@ -18,26 +18,30 @@ const TableController = observer(({ tableStore }) => {
         tableStore.setIsHideV3Col(!tableStore.isHideV3Col)
 
     return (
-        <ToggleButtonGroup type="checkbox">
+        <ToggleButtonGroup className={styles.TableController} type="checkbox">
             <ToggleButton id="translate"
+                className={styles.ToggleButton}
                 onClick={hideTranslateCol}
                 value={1}
                 variant='primary'>
                 Переклад
             </ToggleButton>
             <ToggleButton id="v1"
+                className={styles.ToggleButton}
                 onClick={hideV1Col}
                 value={2}
                 variant='success'>
                 1 Форма
             </ToggleButton>
             <ToggleButton id="v2"
+                className={styles.ToggleButton}
                 onClick={hideV2Col}
                 value={3}
                 variant='success'>
                 2 Форма
             </ToggleButton>
             <ToggleButton id="v3"
+                className={styles.ToggleButton}
                 onClick={hideV3Col}
                 value={4}
                 variant='success'>

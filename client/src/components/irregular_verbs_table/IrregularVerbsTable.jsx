@@ -2,6 +2,7 @@ import React from 'react'
 import { Table } from 'react-bootstrap'
 import IrregularVerbForm from '../irregular_verb_form/IrregularVerbFrom';
 import { observer } from 'mobx-react-lite';
+import styles from './IrregularVerbsTable.module.scss'
 
 const IrregularVerbsTable = observer(({ currentVerbs, tableStore }) => {
     const checkIsVerbHide = (verb) => {
@@ -20,10 +21,10 @@ const IrregularVerbsTable = observer(({ currentVerbs, tableStore }) => {
             <thead>
                 <tr>
                     <th></th>
-                    <th>Переклад</th>
-                    <th>1 форма</th>
-                    <th>2 форма</th>
-                    <th>3 форма</th>
+                    <th className={styles.TranslateTitle}>Переклад</th>
+                    <th className={styles.FormTitle}>1 форма</th>
+                    <th className={styles.FormTitle}>2 форма</th>
+                    <th className={styles.FormTitle}>3 форма</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +40,7 @@ const IrregularVerbsTable = observer(({ currentVerbs, tableStore }) => {
                             }>
                             </td>
                             { /* Row translate */}
-                            <td>
+                            <td className={styles.Translate}>
                                 {
                                     !tableStore.isHideTranslateCol
                                     &&

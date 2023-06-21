@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
+import styles from './IrregularVerbForm.module.scss'
 
 const IrregularVerbForm = ({ name, transcription, soundPath }) => {
     return (

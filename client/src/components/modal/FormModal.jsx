@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 
-const SimpleModal = ({ show, setShow, title, content }) => {
+const FormModal = ({ show, setShow, title, content }) => {
     const handleClose = () => setShow(!show);
 
     return (
@@ -15,11 +15,10 @@ const SimpleModal = ({ show, setShow, title, content }) => {
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>Close</Button>
-                <Button variant="primary" onClick={handleClose}>Save changes</Button>
+                <Button variant="secondary" onClick={handleClose}>Закрити</Button>
             </Modal.Footer>
         </Modal>
     )
 }
 
-export default SimpleModal
+export default FormModal

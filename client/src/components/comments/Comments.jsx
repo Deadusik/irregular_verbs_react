@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Card, Row, Button, Col, Modal } from 'react-bootstrap'
+import { Card, Row, Button, Col } from 'react-bootstrap'
 import Comment from './Comment'
 import styles from './Comments.module.scss'
 import CommentForm from '../forms/CommentForm'
-import SimpleModal from '../modal/SimpleModal'
+import FormModal from '../modal/FormModal'
 
 const Comments = ({ parentComments }) => {
     const checkIsLastComment = (index, length) => index === length - 1
@@ -50,7 +50,7 @@ const Comments = ({ parentComments }) => {
                 </Row>
                 {/* Show modal form to add a new comment */}
                 <Button variant='danger' onClick={() => setIsShowModalComment(true)}>Залишити коментар</Button>
-                <SimpleModal
+                <FormModal
                     title={'Додати коментар'}
                     content={<CommentForm />}
                     show={isShowModalComment}
